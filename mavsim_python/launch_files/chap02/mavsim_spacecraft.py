@@ -12,13 +12,13 @@ import os, sys
 from pathlib import Path
 sys.path.insert(0,os.fspath(Path(__file__).parents[2]))
 # use QuitListener for Linux or PC <- doesn't work on Mac
-#from python_tools.quit_listener import QuitListener
+from tools.quit_listener import QuitListener
 import pyqtgraph as pg
 import parameters.simulation_parameters as SIM
 from viewers.spacecraft_viewer import SpaceCraftViewer
 from message_types.msg_state import MsgState
 
-#quitter = QuitListener()
+quitter = QuitListener()
 VIDEO = False
 if VIDEO is True:
     from viewers.video_writer import VideoWriter
@@ -68,8 +68,8 @@ while sim_time < end_time:
         video.update(sim_time)
 
     # # -------Check to Quit the Loop-------
-    # if quitter.check_quit():
-    #     break
+    if quitter.check_quit():
+        break
 
 if VIDEO is True:
     video.update(sim_time)
